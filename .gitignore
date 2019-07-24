@@ -1,10 +1,10 @@
 /log
 /temp
+/bin/*
 !/bin/custom
 /bin/custom/concerttours/classes
 /bin/custom/concerttours/gensrc
 /bin/custom/yb2bacceleratorstorefront
-/bin/*
 /roles
 /data
 
