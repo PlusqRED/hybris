@@ -60,5 +60,6 @@
     <extension name='textfieldconfiguratortemplateatddtests' />
     <extension name='pcmbackofficesamplesaddon' />
     <extension name='yb2bacceleratorstorefront' />
+    <extension dir="../custom/concerttours"/>  
   </extensions>
 </hybrisconfig>
