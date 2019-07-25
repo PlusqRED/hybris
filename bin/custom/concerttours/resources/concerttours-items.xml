@@ -83,7 +83,7 @@
 
 
 		<!-- Hybris123SnippetStart concerttours-items.xml_Band -->
-		<itemtype generate="true" code="Band" autocreate="true" extends="GenericItem">
+		<itemtype generate="true" code="Band" autocreate="true">
 			<deployment table="Bands" typecode="30268" />
 			<attributes>
 				<attribute qualifier="code" type="java.lang.String">
@@ -107,7 +107,7 @@
 		<!-- Hybris123SnippetEnd -->
 
 		<!-- Hybris123SnippetStart concerttours-items.xml_Venue -->
-		<itemtype generate="true" code="Venue" autocreate="true" extends="GenericItem">
+		<itemtype generate="true" code="Venue" autocreate="true">
 			<deployment table="Venues" typecode="30266" />
 			<attributes>
 				<attribute qualifier="name" type="java.lang.String">
