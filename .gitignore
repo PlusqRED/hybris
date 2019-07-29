@@ -5,6 +5,7 @@
 /bin/custom/concerttours/classes
 /bin/custom/concerttours/gensrc
 /bin/custom/yb2bacceleratorstorefront
+/config/solr/instances/default
 /roles
 /data
 
