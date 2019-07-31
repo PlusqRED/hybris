@@ -100,7 +100,7 @@
 				</attribute>
 				<attribute qualifier="albumSales" type="java.lang.Long">
 					<description>official global album sales</description>
-					<persistence type="dynamic"/>
+					<persistence type="property"/>
 				</attribute>
 			</attributes>
 		</itemtype>
