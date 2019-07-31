@@ -21,23 +21,19 @@ import concerttours.service.ConcerttoursService;
 
 
 @SystemSetup(extension = ConcerttoursConstants.EXTENSIONNAME)
-public class ConcerttoursSystemSetup
-{
-	private final ConcerttoursService concerttoursService;
+public class ConcerttoursSystemSetup {
+    private final ConcerttoursService concerttoursService;
 
-	public ConcerttoursSystemSetup(final ConcerttoursService concerttoursService)
-	{
-		this.concerttoursService = concerttoursService;
-	}
+    public ConcerttoursSystemSetup(final ConcerttoursService concerttoursService) {
+        this.concerttoursService = concerttoursService;
+    }
 
-	@SystemSetup(process = SystemSetup.Process.INIT, type = SystemSetup.Type.ESSENTIAL)
-	public void createEssentialData()
-	{
-		concerttoursService.createLogo(PLATFORM_LOGO_CODE);
-	}
+    @SystemSetup(process = SystemSetup.Process.INIT, type = SystemSetup.Type.ESSENTIAL)
+    public void createEssentialData() {
+        concerttoursService.createLogo(PLATFORM_LOGO_CODE);
+    }
 
-	private InputStream getImageStream()
-	{
-		return ConcerttoursSystemSetup.class.getResourceAsStream("/concerttours/sap-hybris-platform.png");
-	}
+    private InputStream getImageStream() {
+        return ConcerttoursSystemSetup.class.getResourceAsStream("/concerttours/sap-hybris-platform.png");
+    }
 }
