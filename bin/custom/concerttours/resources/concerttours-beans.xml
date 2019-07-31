@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!--
- [y] hybris Platform
-
- Copyright (c) 2018 SAP SE or an SAP affiliate company. All rights reserved.
-
- This software is the confidential and proprietary information of SAP
- ("Confidential Information"). You shall not disclose such Confidential
- Information and shall use it only in accordance with the terms of the
- license agreement you entered into with SAP.
--->
-<!--
-	ATTENTION: This is just an example file. You have to edit it according to your needs.
--->
-
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
-
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd"
+>
+    <context:component-scan base-package="concerttours"/>
     <bean class="concerttours.setup.ConcerttoursCustomSetup">
-        <property name="importService" type="de.hybris.platform.servicelayer.impex.ImportService"/>
+        <property name="importService" ref="importService"/>
     </bean>
 
+    <alias name="defaultBandService" alias="bandService"/>
+    <bean id="defaultBandService" class="concerttours.service.impl.DefaultBandService">
+        <property name="bandDAO" ref="bandDAO"/>
+    </bean>
     <!--
         Example Data POJO
 
