@@ -35,7 +35,7 @@ public class TourController {
     }
 
     @Autowired
-    public void setFacade(final TourFacade facade) {
-        this.tourFacade = facade;
+    public void setTourFacade(final TourFacade tourFacade) {
+        this.tourFacade = tourFacade;
     }
 }

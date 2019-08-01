@@ -1,4 +1,4 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
 <title>Band Details</title>
@@ -15,8 +15,10 @@ Band Details for ${band.name}
 <p>Tour History:</p>
 <ul>
     <c:forEach var="tour" items="${band.tours}">
-        <li><a href="../tours/${tour.id}">${tour.tourName}</a>(number of concerts: ${tour.numberOfConcerts})</li>
+        <li><a href="../tours/${tour.id}">${tour.tourName}</a>
+            <p>(number of concerts: ${tour.numberOfConcerts})</p></li>
     </c:forEach>
+
 </ul>
 <a href="../bands">Back to Band List</a>
 </body>

@@ -22,15 +22,17 @@ import concerttours.service.ConcerttoursService;
 
 
 @Controller
-public class ConcerttoursHelloController
-{
-	@Autowired
-	private ConcerttoursService concerttoursService;
+public class ConcerttoursHelloController {
+    private ConcerttoursService concerttoursService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String printWelcome(final ModelMap model)
-	{
-		model.addAttribute("logoUrl", concerttoursService.getHybrisLogoUrl(PLATFORM_LOGO_CODE));
-		return "welcome";
-	}
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String printWelcome(final ModelMap model) {
+        model.addAttribute("logoUrl", concerttoursService.getHybrisLogoUrl(PLATFORM_LOGO_CODE));
+        return "welcome";
+    }
+
+    @Autowired
+    public void setConcerttoursService(final ConcerttoursService concerttoursService) {
+        this.concerttoursService = concerttoursService;
+    }
 }

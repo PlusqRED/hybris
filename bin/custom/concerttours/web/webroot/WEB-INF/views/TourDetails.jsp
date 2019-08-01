@@ -11,7 +11,7 @@ Tour Details for ${tour.tourName}
 <table>
     <tr>
         <th>Venue</th>
-        <th></th>
+        <th>Type</th>
         <th>Date</th>
         <th>Days Until</th>
     </tr>

@@ -18,6 +18,12 @@
     <bean class="concerttours.setup.ConcerttoursCustomSetup">
         <property name="importService" type="de.hybris.platform.servicelayer.impex.ImportService"/>
     </bean>
+    <bean class="concerttours.data.VenueData">
+        <description>Data object representing a Venue</description>
+        <property name="id" type="String"/>
+        <property name="name" type="String"/>
+        <property name="location" type="String"/>
+    </bean>
     <bean class="concerttours.data.TourSummaryData">
         <description>Data object for a tour summary which has no equivalent on the type system</description>
         <property name="id" type="String"/>
@@ -37,7 +43,7 @@
         <description>Data object for a concert summary</description>
         <property name="id" type="String"/>
         <property name="date" type="java.util.Date"/>
-        <property name="venue" type="concerttours.model.VenueModel"/>
+        <property name="venue" type="concerttours.data.VenueData"/>
         <property name="type" type="String"/>
         <property name = "countDown" type="Long"/>
     </bean>

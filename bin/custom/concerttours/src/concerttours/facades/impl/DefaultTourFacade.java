@@ -1,5 +1,7 @@
 package concerttours.facades.impl;
 
+import com.sun.istack.internal.NotNull;
+import concerttours.data.VenueData;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.product.ProductService;
 import de.hybris.platform.variants.model.VariantProductModel;
@@ -7,6 +9,7 @@ import de.hybris.platform.variants.model.VariantProductModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import concerttours.data.ConcertSummaryData;
 import concerttours.data.TourData;
@@ -36,7 +39,7 @@ public class DefaultTourFacade implements TourFacade {
                     final ConcertSummaryData summary = new ConcertSummaryData();
                     summary.setId(concert.getCode());
                     summary.setDate(concert.getDate());
-                    summary.setVenue(concert.getVenue());
+                    summary.setVenue(createVenueData(concert));
                     summary.setType(concert.getConcertType() == ConcertType.OPENAIR ? "Outdoors" : "Indoors");
                     summary.setCountDown(concert.getDaysUntil());
                     concerts.add(summary);
@@ -53,7 +56,15 @@ public class DefaultTourFacade implements TourFacade {
         return tourData;
     }
 
-    @Required
+    private static VenueData createVenueData(@NotNull final ConcertModel concert) {
+        final VenueData venueData = new VenueData();
+        venueData.setId(concert.getVenue().getCode());
+        venueData.setName(concert.getVenue().getName());
+        venueData.setLocation(concert.getVenue().getLocation());
+        return venueData;
+    }
+
+    @Autowired
     public void setProductService(final ProductService productService) {
         this.productService = productService;
     }

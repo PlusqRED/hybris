@@ -43,7 +43,7 @@ public class BandController {
     }
 
     @Autowired
-    public void setFacade(final BandFacade facade) {
-        this.bandFacade = facade;
+    public void setBandFacade(final BandFacade bandFacade) {
+        this.bandFacade = bandFacade;
     }
 }
