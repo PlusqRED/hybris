@@ -52,7 +52,7 @@ public class DefaultBandFacadeIntegrationTest extends ServicelayerTransactionalT
     /**
      * Albums sold by test band.
      */
-    private static final Long ALBUMS_SOLD = Long.valueOf(10L);
+    private static final Long ALBUMS_SOLD = 10L;
 
     @Before
     public void setUp() {
