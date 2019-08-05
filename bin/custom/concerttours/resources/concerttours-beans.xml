@@ -23,6 +23,7 @@
         <property name="id" type="String"/>
         <property name="name" type="String"/>
         <property name="location" type="String"/>
+        <property name="description" type="String"/>
     </bean>
     <bean class="concerttours.data.TourSummaryData">
         <description>Data object for a tour summary which has no equivalent on the type system</description>

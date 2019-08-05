@@ -5,8 +5,10 @@ INSERT_UPDATE ScriptingJob; code[unique = true] ; scriptURI
 # Define the CronJob
 INSERT_UPDATE CronJob; code[unique = true]     ; job(code)           ; sessionLanguage(isocode)
                      ; clearoldconcertsCronJob ; clearoldconcertsJob ; en
+                     ; updateVenuesCronJob     ; updateVenuesJob     ; en
 
 # Define the trigger
 INSERT_UPDATE Trigger; cronjob(code)[unique = true]; cronExpression
 #% afterEach: impex.getLastImportedItem().setActivationTime(new Date());
                      ; clearoldconcertsCronJob     ; 0/10 * * * * ?
+                     ; updateVenuesCronJob         ; 0/10 * * * * ?

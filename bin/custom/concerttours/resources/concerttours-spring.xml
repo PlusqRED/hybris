@@ -132,4 +132,12 @@
         <property name="newsService" ref="newsService" />
         <property name="configurationService" ref="configurationService" />
     </bean>
+    <bean id="defaultVenueService" class="concerttours.service.impl.DefaultVenueService">
+        <property name="configurationService" ref="configurationService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="venueDAO" ref="venueDAO"/>
+    </bean>
+    <bean id="updateVenuesJob" class="concerttours.jobs.UpdateVenuesJob" parent="abstractJobPerformable">
+        <property name="venueService" ref="defaultVenueService"/>
+    </bean>
 </beans>

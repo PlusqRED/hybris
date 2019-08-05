@@ -2,6 +2,7 @@ package concerttours.daos.impl;
 
 import concerttours.daos.VenueDAO;
 import concerttours.model.VenueModel;
+import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class DefaultVenueDAO implements VenueDAO {
 
     @Autowired
     private FlexibleSearchService flexibleSearchService;
+
+    @Autowired
+    private ModelService modelService;
 
     @Override
     public List<VenueModel> findVenues() {
@@ -32,4 +36,10 @@ public class DefaultVenueDAO implements VenueDAO {
         query.addQueryParameter("code", code);
         return flexibleSearchService.<VenueModel>search(query).getResult();
     }
+
+    @Override
+    public void save(VenueModel venueModel) {
+        modelService.save(venueModel);
+    }
+
 }

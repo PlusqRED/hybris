@@ -126,6 +126,14 @@
 					<description>venues location</description>
 					<persistence type="property" />
 				</attribute>
+				<attribute qualifier="description" type="java.lang.String">
+					<description>venues description</description>
+					<persistence type="property">
+						<columntype>
+							<value>varchar(1000)</value>
+						</columntype>
+					</persistence>
+				</attribute>
 			</attributes>
 		</itemtype>
 		<!-- Hybris123SnippetEnd -->
