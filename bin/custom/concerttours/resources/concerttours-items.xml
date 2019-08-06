@@ -65,6 +65,10 @@
 					<description>type of concert (indoors or open air)</description>
 					<persistence type="property" />
 				</attribute>
+				<attribute qualifier="daysUntil" type="java.lang.Long">
+					<persistence type="dynamic" attributeHandler="concertDaysUntilAttributeHandler" />
+					<modifiers read="true" write="false" />
+				</attribute>
 			</attributes>
 		</itemtype>
 		<!-- Hybris123SnippetEnd -->
@@ -100,7 +104,7 @@
 				</attribute>
 				<attribute qualifier="albumSales" type="java.lang.Long">
 					<description>official global album sales</description>
-					<persistence type="property" />
+					<persistence type="property"/>
 				</attribute>
 			</attributes>
 		</itemtype>
@@ -110,6 +114,10 @@
 		<itemtype generate="true" code="Venue" autocreate="true">
 			<deployment table="Venues" typecode="30266" />
 			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>venues code</description>
+					<persistence type="property"/>
+				</attribute>
 				<attribute qualifier="name" type="java.lang.String">
 					<description>venues name</description>
 					<persistence type="property" />
@@ -123,5 +131,7 @@
 		<!-- Hybris123SnippetEnd -->
 
 	</itemtypes>
+
+
 
 </items>

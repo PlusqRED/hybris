@@ -1,0 +1,5 @@
+INSERT_UPDATE Venue; code[unique = true]; name        ; location
+                   ; 11                 ; Minsk Arena ; Minsk
+                   ; 12                 ; Stadium     ; Hrodno
+                   ; 13                 ; RE Public   ; Minsk
+                   ; 14                 ; Bridge      ; Minsk
