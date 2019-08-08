@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class DefaultVenueService implements VenueService {
 
@@ -20,7 +21,7 @@ public class DefaultVenueService implements VenueService {
     private static final String PROPERTY_WEBSOURCE_FIELD = "service.venues.source";
 
     @Override
-    public void updateVenues() throws IOException {
+    public void addOrUpdateVenuesFromExternalSource() throws IOException {
         String webSource = configurationService.getConfiguration().getString(PROPERTY_WEBSOURCE_FIELD);
         JSONObject jsonWebSourceResult = JsonReader.readJsonFromUrl(webSource);
         JSONArray venues = jsonWebSourceResult.getJSONObject("resultsPage").getJSONObject("results").getJSONArray("venue");
@@ -28,15 +29,28 @@ public class DefaultVenueService implements VenueService {
         for (Object o : venues) {
             JSONObject venue = (JSONObject) o;
             VenueModel venueModel = loadVenueModel(venue);
-            if (!isVenueAlreadyExists(venueModel, existingVenues)) {
+            Optional<VenueModel> venueFromList = findVenueFromList(venueModel, existingVenues);
+            if (venueFromList.isPresent()) {
+                VenueModel venueToUpdate = venueFromList.get();
+                updateAttributes(venueToUpdate, venueModel);
+                venueDAO.save(venueToUpdate);
+            } else {
                 venueDAO.save(venueModel);
             }
         }
     }
 
-    private boolean isVenueAlreadyExists(VenueModel venueModel, List<VenueModel> existingVenues) {
+    private void updateAttributes(VenueModel venueToUpdate, VenueModel venueModel) {
+        venueToUpdate.setName(venueModel.getName());
+        venueToUpdate.setDescription(venueModel.getDescription());
+        venueToUpdate.setLocation(venueModel.getLocation());
+        venueToUpdate.setConcerts(venueModel.getConcerts());
+    }
+
+    private Optional<VenueModel> findVenueFromList(VenueModel venueModel, List<VenueModel> existingVenues) {
         return existingVenues.stream()
-                .anyMatch(venue -> venue.getCode().equals(venueModel.getCode()));
+                .filter(venue -> venue.getCode().equals(venueModel.getCode()))
+                .findAny();
     }
 
     private VenueModel loadVenueModel(JSONObject venue) {

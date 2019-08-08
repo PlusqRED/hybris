@@ -20,7 +20,7 @@ public class UpdateVenuesJob extends AbstractJobPerformable<CronJobModel> {
     public PerformResult perform(CronJobModel cronJobModel) {
         LOG.info("Updating venues...");
         try {
-            venueService.updateVenues();
+            venueService.addOrUpdateVenuesFromExternalSource();
             LOG.info("Venues successfully updated");
             return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
         } catch (IOException e) {
