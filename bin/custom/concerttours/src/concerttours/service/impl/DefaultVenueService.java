@@ -18,25 +18,34 @@ public class DefaultVenueService implements VenueService {
     private ConfigurationService configurationService;
     private VenueDAO venueDAO;
     private ModelService modelService;
-    private static final String PROPERTY_WEBSOURCE_FIELD = "service.venues.source";
+    private JsonReader jsonReader;
+
+    protected static final String PROPERTY_WEBSOURCE_FIELD = "service.venues.source";
+    protected static final String RESULTS_PAGE = "resultsPage";
+    protected static final String RESULTS = "results";
+    protected static final String VENUE = "venue";
+    protected static final String ID = "id";
+    protected static final String DISPLAY_NAME = "displayName";
+    protected static final String DESCRIPTION = "description";
+    protected static final String ZIP = "zip";
+    protected static final String STREET = "street";
+    protected static final String CITY = "city";
 
     @Override
     public void addOrUpdateVenuesFromExternalSource() throws IOException {
         String webSource = configurationService.getConfiguration().getString(PROPERTY_WEBSOURCE_FIELD);
-        JSONObject jsonWebSourceResult = JsonReader.readJsonFromUrl(webSource);
-        JSONArray venues = jsonWebSourceResult.getJSONObject("resultsPage").getJSONObject("results").getJSONArray("venue");
+        JSONObject jsonWebSourceResult = jsonReader.readJsonFromUrl(webSource);
+        JSONArray venues = jsonWebSourceResult.getJSONObject(RESULTS_PAGE)
+                .getJSONObject(RESULTS)
+                .getJSONArray(VENUE);
         List<VenueModel> existingVenues = venueDAO.findVenues();
         for (Object o : venues) {
             JSONObject venue = (JSONObject) o;
             VenueModel venueModel = loadVenueModel(venue);
-            Optional<VenueModel> venueFromList = findVenueFromList(venueModel, existingVenues);
-            if (venueFromList.isPresent()) {
-                VenueModel venueToUpdate = venueFromList.get();
-                updateAttributes(venueToUpdate, venueModel);
-                venueDAO.save(venueToUpdate);
-            } else {
-                venueDAO.save(venueModel);
-            }
+            VenueModel venueToUpdateOrToSave = findVenueFromList(venueModel, existingVenues)
+                    .orElseGet(() -> modelService.create(VenueModel.class));
+            updateAttributes(venueToUpdateOrToSave, venueModel);
+            venueDAO.save(venueToUpdateOrToSave);
         }
     }
 
@@ -53,19 +62,15 @@ public class DefaultVenueService implements VenueService {
                 .findAny();
     }
 
-    private VenueModel loadVenueModel(JSONObject venue) {
-        VenueModel venueModel = modelService.create(VenueModel.class);
-        venueModel.setCode(String.valueOf(venue.getLong("id")));
-        venueModel.setName(venue.getString("displayName"));
-        String description = venue.getString("description");
-        if(description.isEmpty()) {
-            venueModel.setDescription("No description");
-        } else {
-            venueModel.setDescription(description);
-        }
-        final String location = venue.getString("zip") + " "
-                + venue.getString("street") + " "
-                + venue.getJSONObject("city").getString("displayName");
+    protected VenueModel loadVenueModel(JSONObject venue) {
+        VenueModel venueModel = new VenueModel();
+        venueModel.setCode(String.valueOf(venue.getLong(ID)));
+        venueModel.setName(venue.getString(DISPLAY_NAME));
+        venueModel.setDescription(venue.getString(DESCRIPTION));
+        String location = String.join(" ",
+                venue.getString(ZIP),
+                venue.getString(STREET),
+                venue.getJSONObject(CITY).getString(DISPLAY_NAME));
         venueModel.setLocation(location);
         return venueModel;
     }
@@ -80,5 +85,9 @@ public class DefaultVenueService implements VenueService {
 
     public void setModelService(ModelService modelService) {
         this.modelService = modelService;
+    }
+
+    public void setJsonReader(JsonReader jsonReader) {
+        this.jsonReader = jsonReader;
     }
 }
