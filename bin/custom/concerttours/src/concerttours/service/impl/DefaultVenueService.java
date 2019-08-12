@@ -50,6 +50,7 @@ public class DefaultVenueService implements VenueService {
     }
 
     private void updateAttributes(VenueModel venueToUpdate, VenueModel venueModel) {
+        venueToUpdate.setCode(venueModel.getCode());
         venueToUpdate.setName(venueModel.getName());
         venueToUpdate.setDescription(venueModel.getDescription());
         venueToUpdate.setLocation(venueModel.getLocation());
