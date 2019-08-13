@@ -100,6 +100,7 @@
     <alias name="defaultBandFacade" alias="bandFacade"/>
     <bean id="defaultBandFacade" class="concerttours.facades.impl.DefaultBandFacade">
         <property name="bandService" ref="bandService"/>
+        <property name="mediaService" ref="mediaService"/>
     </bean>
 
     <alias name="defaultTourFacade" alias="tourFacade"/>
