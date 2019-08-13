@@ -1,6 +1,6 @@
 # ImpEx for Importing Bands into Little Concert Tours Store
 
-INSERT_UPDATE Band; code[unique = true]; name[unique = true]; albumSales
+INSERT_UPDATE Band; code[unique = true]; name; albumSales
                   ; A001               ; yRock              ; 1000000
                   ; A006               ; yBand              ; 22
                   ; A003               ; yJazz              ; 7
