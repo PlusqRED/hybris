@@ -80,11 +80,6 @@
            <aop:pointcut id="profiledMethods" expression="execution(* *(..))" />
       -->
 
-    <bean id="concerttoursSystemSetup" class="concerttours.setup.ConcerttoursSystemSetup">
-        <!-- constructor arg injection example -->
-        <constructor-arg ref="concerttoursService"/>
-    </bean>
-
     <bean id="concerttoursService" class="concerttours.service.impl.DefaultConcerttoursService">
         <!-- setter injection example -->
         <property name="modelService" ref="modelService"/>
@@ -97,10 +92,11 @@
         <property name="bandDAO" ref="bandDAO"/>
     </bean>
 
-    <alias name="defaultBandFacade" alias="bandFacade"/>
-    <bean id="defaultBandFacade" class="concerttours.facades.impl.DefaultBandFacade">
-        <property name="bandService" ref="bandService"/>
+    <alias name = "defaultBandFacade" alias = "bandFacade" />
+    <bean id = "defaultBandFacade" class ="concerttours.facades.impl.DefaultBandFacade" >
+        <property name = "bandService" ref = "bandService" />
         <property name="mediaService" ref="mediaService"/>
+        <property name="configurationService" ref="configurationService" />
     </bean>
 
     <alias name="defaultTourFacade" alias="tourFacade"/>
@@ -143,4 +139,16 @@
     <bean id="updateVenuesJob" class="concerttours.jobs.UpdateVenuesJob" parent="abstractJobPerformable">
         <property name="venueService" ref="defaultVenueService"/>
     </bean>
+
+    <bean id="concerttoursCustomSetup" class="concerttours.setup.ConcerttoursCustomSetup" >
+        <property name="importService" ref="importService"/>
+    </bean>
+
+    <bean id="concerttoursSystemSetup" class="concerttours.setup.ConcerttoursSystemSetup">
+        <!-- constructor arg injection example -->
+        <constructor-arg ref="concerttoursService"/>
+    </bean>
+
+
+
 </beans>

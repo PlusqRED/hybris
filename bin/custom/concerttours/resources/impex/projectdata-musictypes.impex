@@ -1,5 +1,5 @@
 # ImpEx for Importing Bands music type assignments
-INSERT_UPDATE Band; code[unique = true]; types(code)
+UPDATE Band; code[unique = true]; types(code)
                   ; A001               ; rock,eighties
                   ; A006               ; rock,sixties,seventies,eighties,maleVocals
                   ; A003               ; jazz,femaleVocals

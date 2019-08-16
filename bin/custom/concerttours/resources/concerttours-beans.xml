@@ -15,9 +15,7 @@
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-    <bean class="concerttours.setup.ConcerttoursCustomSetup">
-        <property name="importService" type="de.hybris.platform.servicelayer.impex.ImportService"/>
-    </bean>
+
     <bean class="concerttours.data.VenueData">
         <description>Data object representing a Venue</description>
         <property name="id" type="String"/>
