@@ -19,71 +19,66 @@
 >
     <context:component-scan base-package="concerttours"/>
 
-	<!--
-	The hybris platform provides one single Spring application context for beans located at the jalo layer.
-	Each extension can add beans to this context by specifying them at this configuration file.
-	 
-	You can use and/or redefine beans defined at configuration files of other extensions as well as
-	adding new one.
-		
-	If you want to locate this file at a different location or want to use several files for better,
-	structuring, please use the '<yourextension>.application-context' property at your project.properties file.
-	There you can specify a comma separated list of files where first is tried to find a file per classpath and
-	then per file system.
+    <!--
+    The hybris platform provides one single Spring application context for beans located at the jalo layer.
+    Each extension can add beans to this context by specifying them at this configuration file.
 
-	
-	If you want to configure beans for your web module please have a look at
-	your web/webroot/WEB-INF/<extname>-web-spring.xml.
-	-->
-	
-	<!--  Example how to override a manager -->
-	<!--
-	<bean id="core.productManager"   class="concerttours.jalo.ConcerttoursProductManager" 	init-method="init"	destroy-method="destroy" />
-	-->
-	
-	
- 	<!--  Example how to configure the class to use for jalo session creation -->
-	<!--
-	<bean id="jalosession"   class="de.hybris.platform.jalo.JaloSessionFactory">
-		<property name="targetClassName" value="concerttours.jalo.ConcerttoursJaloSession"/>
-	</bean>
-	-->
+    You can use and/or redefine beans defined at configuration files of other extensions as well as
+    adding new one.
 
-	
-	<!--  Example how to override an item  -->
-	<!-- 
-	<bean id="de.hybris.platform.jalo.product.Product" class="concerttours.jalo.ConcerttoursProduct" scope="prototype" />		
- 	-->
+    If you want to locate this file at a different location or want to use several files for better,
+    structuring, please use the '<yourextension>.application-context' property at your project.properties file.
+    There you can specify a comma separated list of files where first is tried to find a file per classpath and
+    then per file system.
 
-	<!--  
-	 Example how to register and use an AOP aspect 
+
+    If you want to configure beans for your web module please have a look at
+    your web/webroot/WEB-INF/<extname>-web-spring.xml.
+    -->
+
+    <!--  Example how to override a manager -->
+    <!--
+    <bean id="core.productManager"   class="concerttours.jalo.ConcerttoursProductManager" 	init-method="init"	destroy-method="destroy" />
+    -->
+
+
+    <!--  Example how to configure the class to use for jalo session creation -->
+    <!--
+    <bean id="jalosession"   class="de.hybris.platform.jalo.JaloSessionFactory">
+        <property name="targetClassName" value="concerttours.jalo.ConcerttoursJaloSession"/>
+    </bean>
+    -->
+
+
+    <!--  Example how to override an item  -->
+    <!--
+    <bean id="de.hybris.platform.jalo.product.Product" class="concerttours.jalo.ConcerttoursProduct" scope="prototype" />
+     -->
+
+    <!--
+     Example how to register and use an AOP aspect
      Also see http://static.springframework.org/spring/docs/2.5.x/reference/aop.html	
      -->
-	
-	<!-- 
-	<bean id="concerttoursProfBean" class="concerttours.aop.ConcerttoursProfilingAspect"/>
-	<aop:config proxy-target-class="true">
-  		<aop:aspect id="concerttoursProfAspect" ref="concerttoursProfBean" >
-    	  <aop:pointcut id="profiledMethods" 
-	      	expression="execution(* getModificationTime(..))" />  	            
-	   		<aop:around pointcut-ref="profiledMethods" method="profile" />
-  		</aop:aspect>
-	</aop:config>
-	 -->
 
-	
-	<!-- some other examples of a pointcut that matches everything:
+    <!--
+    <bean id="concerttoursProfBean" class="concerttours.aop.ConcerttoursProfilingAspect"/>
+    <aop:config proxy-target-class="true">
+          <aop:aspect id="concerttoursProfAspect" ref="concerttoursProfBean" >
+          <aop:pointcut id="profiledMethods"
+              expression="execution(* getModificationTime(..))" />
+               <aop:around pointcut-ref="profiledMethods" method="profile" />
+          </aop:aspect>
+    </aop:config>
+     -->
 
-    	  <aop:pointcut id="profiledMethods" 
-	      	expression="bean(de.hybris.platform.jalo.user.Customer) &amp;&amp; 
-	      	            !execution(* getPK(..))" />  	            
-	       <aop:pointcut id="profiledMethods" expression="execution(* *(..))" />	
-	  -->
-	
-    <bean id="concerttoursSystemSetup" class="concerttours.setup.ConcerttoursSystemSetup">
-        <!-- constructor arg injection example -->
-        <constructor-arg ref="concerttoursService"/>
-    </bean>
+
+    <!-- some other examples of a pointcut that matches everything:
+
+          <aop:pointcut id="profiledMethods"
+              expression="bean(de.hybris.platform.jalo.user.Customer) &amp;&amp;
+                          !execution(* getPK(..))" />
+           <aop:pointcut id="profiledMethods" expression="execution(* *(..))" />
+      -->
 
     <bean id="concerttoursService" class="concerttours.service.impl.DefaultConcerttoursService">
         <!-- setter injection example -->
@@ -92,21 +87,68 @@
         <property name="flexibleSearchService" ref="flexibleSearchService"/>
     </bean>
 
-    <alias name = "defaultBandService" alias = "bandService" />
-    <bean id = "defaultBandService" class = "concerttours.service.impl.DefaultBandService" >
-        <property name = "bandDAO" ref = "bandDAO" />
+    <alias name="defaultBandService" alias="bandService"/>
+    <bean id="defaultBandService" class="concerttours.service.impl.DefaultBandService">
+        <property name="bandDAO" ref="bandDAO"/>
     </bean>
 
     <alias name = "defaultBandFacade" alias = "bandFacade" />
     <bean id = "defaultBandFacade" class ="concerttours.facades.impl.DefaultBandFacade" >
         <property name = "bandService" ref = "bandService" />
+        <property name="mediaService" ref="mediaService"/>
+        <property name="configurationService" ref="configurationService" />
     </bean>
 
-    <alias name = "defaultTourFacade" alias = "tourFacade" />
-    <bean id = "defaultTourFacade" class ="concerttours.facades.impl.DefaultTourFacade" >
-        <property name = "productService" ref = "productService" />
+    <alias name="defaultTourFacade" alias="tourFacade"/>
+    <bean id="defaultTourFacade" class="concerttours.facades.impl.DefaultTourFacade">
+        <property name="productService" ref="productService"/>
     </bean>
 
-    <bean id="concertDaysUntilAttributeHandler" class="concerttours.attributehandlers.ConcertDaysUntilAttributeHandler"/>
-			
+    <bean id="concertDaysUntilAttributeHandler"
+          class="concerttours.attributehandlers.ConcertDaysUntilAttributeHandler"/>
+
+    <bean id="concerttourEventListener" class="concerttours.events.NewBandEventListener" parent="abstractEventListener">
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <bean id="bandAlbumSalesInterceptor" class="concerttours.interceptors.BandAlbumSalesInterceptor"/>
+    <bean id="bandInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="bandAlbumSalesInterceptor"/>
+        <property name="typeCode" value="Band"/>
+    </bean>
+    <bean id="bandAlbumSalesEventListener" class="concerttours.events.BandAlbumSalesEventListener"
+          parent="abstractEventListener">
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias name="defaultNewsService" alias="newsService" />
+    <bean id="defaultNewsService" class="concerttours.service.impl.DefaultNewsService">
+        <property name="newsDAO" ref="newsDAO" />
+    </bean>
+    <bean id="sendNewsJob" class="concerttours.jobs.SendNewsJob" parent="abstractJobPerformable">
+        <property name="newsService" ref="newsService" />
+        <property name="configurationService" ref="configurationService" />
+    </bean>
+    <bean id="jsonReader" class="concerttours.util.JsonReader"/>
+    <bean id="defaultVenueService" class="concerttours.service.impl.DefaultVenueService">
+        <property name="configurationService" ref="configurationService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="venueDAO" ref="venueDAO"/>
+        <property name="jsonReader" ref="jsonReader"/>
+    </bean>
+    <bean id="updateVenuesJob" class="concerttours.jobs.UpdateVenuesJob" parent="abstractJobPerformable">
+        <property name="venueService" ref="defaultVenueService"/>
+    </bean>
+
+    <bean id="concerttoursCustomSetup" class="concerttours.setup.ConcerttoursCustomSetup" >
+        <property name="importService" ref="importService"/>
+    </bean>
+
+    <bean id="concerttoursSystemSetup" class="concerttours.setup.ConcerttoursSystemSetup">
+        <!-- constructor arg injection example -->
+        <constructor-arg ref="concerttoursService"/>
+    </bean>
+
+
+
 </beans>

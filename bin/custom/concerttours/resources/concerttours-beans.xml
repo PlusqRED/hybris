@@ -15,14 +15,13 @@
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-    <bean class="concerttours.setup.ConcerttoursCustomSetup">
-        <property name="importService" type="de.hybris.platform.servicelayer.impex.ImportService"/>
-    </bean>
+
     <bean class="concerttours.data.VenueData">
         <description>Data object representing a Venue</description>
         <property name="id" type="String"/>
         <property name="name" type="String"/>
         <property name="location" type="String"/>
+        <property name="description" type="String"/>
     </bean>
     <bean class="concerttours.data.TourSummaryData">
         <description>Data object for a tour summary which has no equivalent on the type system</description>
@@ -38,6 +37,7 @@
         <property name="albumsSold" type="Long"/>
         <property name="genres" type="java.util.List&lt;String&gt;"/>
         <property name="tours" type="java.util.List&lt;concerttours.data.TourSummaryData&gt;"/>
+        <property name="imageURL" type="String"/>
     </bean>
     <bean class="concerttours.data.ConcertSummaryData">
         <description>Data object for a concert summary</description>
@@ -45,7 +45,7 @@
         <property name="date" type="java.util.Date"/>
         <property name="venue" type="concerttours.data.VenueData"/>
         <property name="type" type="String"/>
-        <property name = "countDown" type="Long"/>
+        <property name="countDown" type="Long"/>
     </bean>
     <bean class="concerttours.data.TourData">
         <description>Data object representing a tour</description>
