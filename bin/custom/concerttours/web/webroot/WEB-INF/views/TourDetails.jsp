@@ -10,20 +10,39 @@ Tour Details for ${tour.tourName}
 <p>Schedule:</p>
 <table>
     <tr>
-        <th>Venue</th>
         <th>Type</th>
         <th>Date</th>
         <th>Days Until</th>
+        <th>Tickets</th>
     </tr>
     <c:forEach var="concert" items="${tour.concerts}">
         <tr>
-            <td>${concert.venue.name} ${concert.venue.location}</td>
             <td>${concert.type}</td>
-            <td><fmt:formatDate pattern="dd MMM yyyy" value="${concert.date}"/></td>
+            <td>${concert.date}</td>
             <td>${concert.countDown}</td>
+
+            <c:if test="${not empty concert.tickets}">
+                <td>
+                    <table>
+                        <tr>
+                            <th>Price</th>
+                            <th>Amount</th>
+                        </tr>
+
+                        <c:forEach var="ticket" items="${concert.tickets}">
+                            <tr>
+                                <td>${ticket.price}</td>
+                                <td>${ticket.amount}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>
-<a href="../bands">Back to Band List</a>
+<p>
+    <a href="../bands">Back to Band List</a>
+</p>
 </body>
 </html>

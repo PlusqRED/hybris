@@ -49,6 +49,14 @@
 				<modifiers read="true" write="true" search="true" optional="true" />
 			</targetElement>
 		</relation>
+		<relation code="Concert2Ticket" autocreate="true" generate="false" localized="false">
+			<sourceElement qualifier="tickets" type="Ticket" collectiontype="set" cardinality="many" ordered="false">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement qualifier="concerts" type="Concert" cardinality="one">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
 	</relations>
 	<!-- Hybris123SnippetEnd -->
 
@@ -172,6 +180,24 @@
 					<defaultvalue>
 						concerttours.constraints.NotLoremIpsum.class
 					</defaultvalue>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype generate="true" code="Ticket" autocreate="true">
+			<deployment table="Ticket" typecode="30271" />
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<description>code of ticket</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="price" type="java.math.BigDecimal">
+					<description>ticket's price</description>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="amount" type="java.lang.Integer">
+					<description>amount of tickets</description>
+					<persistence type="property" />
 				</attribute>
 			</attributes>
 		</itemtype>

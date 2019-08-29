@@ -46,6 +46,7 @@
         <property name="venue" type="concerttours.data.VenueData"/>
         <property name="type" type="String"/>
         <property name="countDown" type="Long"/>
+        <property name="tickets" type="java.util.List&lt;concerttours.data.TicketData&gt;"/>
     </bean>
     <bean class="concerttours.data.TourData">
         <description>Data object representing a tour</description>
@@ -53,6 +54,13 @@
         <property name="tourName" type="String"/>
         <property name="description" type="String"/>
         <property name="concerts" type="java.util.List&lt;concerttours.data.ConcertSummaryData&gt;"/>
+    </bean>
+
+    <bean class="concerttours.data.TicketData">
+        <description>Data object representing a ticket</description>
+        <property name="id" type="java.lang.String"/>
+        <property name="amount" type="java.lang.Integer"/>
+        <property name="price" type="java.math.BigDecimal"/>
     </bean>
 
     <!--
