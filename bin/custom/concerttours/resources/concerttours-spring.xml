@@ -125,6 +125,7 @@
     <bean id="defaultNewsService" class="concerttours.service.impl.DefaultNewsService">
         <property name="newsDAO" ref="newsDAO" />
     </bean>
+
     <bean id="sendNewsJob" class="concerttours.jobs.SendNewsJob" parent="abstractJobPerformable">
         <property name="newsService" ref="newsService" />
         <property name="configurationService" ref="configurationService" />
@@ -149,6 +150,29 @@
         <constructor-arg ref="concerttoursService"/>
     </bean>
 
+    <bean id="newsCatalogAwareInterceptor" class="concerttours.interceptors.NewsCatalogAwareInterceptor" autowire="byName">
+        <property name="keyGenerator" ref="newsIdGenerator" />
+        <property name="defaultCatalog" value="Default" />
+        <property name="defaultCatalogVersion" value="Online" />
+        <property name="catalogVersionService" ref="catalogVersionService" />
+    </bean>
 
+    <bean id="NewsValidateInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+        <property name="interceptor" ref="newsCatalogAwareInterceptor" />
+        <property name="typeCode" value="News" />
+    </bean>
 
+    <bean id="newsIdGenerator" class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator" init-method="init">
+        <property name="key" value="news_id" />
+        <property name="digits" value="8" />
+        <property name="start" value="00000000" />
+        <property name="numeric" value="true" />
+    </bean>
+
+    <bean id="onlineCatalogDefaultNewsService" class="concerttours.service.impl.OnlineCatalogDefaultNewsService"/>
+
+    <alias name="defaultNewsFacade" alias="newsFacade"/>
+    <bean id="defaultNewsFacade" class="concerttours.facades.impl.DefaultNewsFacade">
+        <property name="onlineCatalogDefaultNewsService" ref="onlineCatalogDefaultNewsService"/>
+    </bean>
 </beans>

@@ -1,0 +1,2 @@
+INSERT_UPDATE SearchRestriction; code[unique = true] ; name[lang = en]; query                                                 ; restrictedType(code); generate[default = true]; active[default = true]
+                               ; Cuppy_Frontend_News ; News           ; "{item:catalogVersion} IN (?session.catalogversions)" ; News                ;

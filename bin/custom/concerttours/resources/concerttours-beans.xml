@@ -54,6 +54,13 @@
         <property name="description" type="String"/>
         <property name="concerts" type="java.util.List&lt;concerttours.data.ConcertSummaryData&gt;"/>
     </bean>
+    <bean class="concerttours.data.NewsData">
+        <description>Data object representing a news</description>
+        <property name="id" type="String"/>
+        <property name="date" type="java.util.Date"/>
+        <property name="headline" type="String"/>
+        <property name="content" type="String"/>
+    </bean>
 
     <!--
         Example Data POJO
